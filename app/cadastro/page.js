@@ -80,7 +80,7 @@ export default function Cadastro() {
       const filename = `perfis/${Date.now()}.${ext}`;
       const { error: uploadError } = await supabase.storage
         .from("fotos")
-        .upload(filename, foto, { contentType: foto.type });
+       .upload(filename, foto, { contentType: foto.type || 'image/jpeg', upsert: true });
 
       if (uploadError) {
         setErro("Erro ao enviar foto. Tente novamente.");
