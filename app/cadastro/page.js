@@ -7,6 +7,11 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY
+);
+
 const SUBESPECIALIDADES = {
   "Personal trainer": ["Emagrecimento","Hipertrofia","Funcional","Esportivo","Corrida","Crossfit","Pilates","Reabilitação","Idosos","Gestantes","Neurodivergente"],
   "Nutricionista": ["Emagrecimento","Hipertrofia","Vegana/Vegetariana","Esportiva","Clínica","Infantil","Gestantes","Idosos","Saúde da Mulher","Neurodivergente"],
@@ -78,7 +83,7 @@ export default function Cadastro() {
     if (foto) {
       const ext = foto.name.split(".").pop();
       const filename = `perfis/${Date.now()}.${ext}`;
-      const { error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabaseAdmin.storage
         .from("fotos")
        .upload(filename, foto, { contentType: foto.type || 'image/jpeg', upsert: true });
 
