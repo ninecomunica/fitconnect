@@ -77,7 +77,7 @@ export default function Cadastro() {
 
     if (foto) {
       const ext = foto.name.split(".").pop();
-      const filename = `${Date.now()}.${ext}`;
+      const filename = `perfis/${Date.now()}.${ext}`;
       const { error: uploadError } = await supabase.storage
         .from("fotos")
         .upload(filename, foto, { contentType: foto.type });
